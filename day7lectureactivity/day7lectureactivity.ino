@@ -87,31 +87,29 @@ void loop()
        digitalWrite(6, HIGH);
        Serial.print(c);
        y+= c;
-//       if(c){
-////          Serial.print("yeahhhhhhh");
-////          digitalWrite(6, HIGH);
-//          
-//  
-//          
-//       }
-//
+
         if(c=='Q'){
           digitalWrite(6, LOW);
           
-                for(pos = 0; pos < 180; pos += 1){  // goes from 0 degrees to 180 degrees 
-                                    // in steps of 1 degree 
-      myservo.write(pos);              // tell servo to go to position in variable 'pos' 
-      delay(15);                       // waits 15ms for the servo to reach the position 
+          for(pos = 0; pos < 180; pos += 1){ 
+                                   
+                myservo.write(pos);             
+                delay(15);                    
           } 
           
           
-          
-          
-          
-          
-//          Serial.print("YAAAAAAAAAAAAa");
+          for(pos = 180; pos>=1; pos-=1){     // goes from 180 degrees to 0 degrees 
+                                    
+            myservo.write(pos);              // tell servo to go to position in variable 'pos' 
+            delay(15);                       // waits 15ms for the servo to reach the position 
+        } 
+
+      //          Serial.print("YAAAAAAAAAAAAa");
         }
     }
+    
+    
+    
   
 //    Serial.print(c);
         
