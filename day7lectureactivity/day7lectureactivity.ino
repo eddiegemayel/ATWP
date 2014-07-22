@@ -23,7 +23,7 @@ byte mac[] = { 0x20, 0xc9, 0xd0, 0xb8, 0xdb, 0x41 };
 // if you don't want to use DNS (and reduce your sketch size)
 // use the numeric IP instead of the name for the server:
 //IPAddress server(74,125,232,128);  // numeric IP for Google (no DNS)
-char server[] = "www.cristianoronaldo.com";    // name address for Google (using DNS)
+char server[] = "eddiegemayel.github.io";    // name address for Google (using DNS)
 
 // Set the static IP address to use if the DHCP fails to assign
 IPAddress ip(192,168,0,177);
@@ -58,8 +58,8 @@ void setup() {
   if (client.connect(server, 80)) {
     Serial.println("connected");
     // Make a HTTP request:
-    client.println("GET /latest HTTP/1.1");
-    client.println("Host: www.cristianoronaldo.com");
+    client.println("GET /ATWP/test/index.html HTTP/1.1");
+    client.println("Host: eddiegemayel.github.io");
     client.println("Connection: close");
     client.println();
   } 
