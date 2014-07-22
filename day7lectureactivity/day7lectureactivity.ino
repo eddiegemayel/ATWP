@@ -87,7 +87,7 @@ void loop()
 //          digitalWrite(6, HIGH);
 //       }
 
-        if(c=='9'){
+        if(c=='Q'){
           digitalWrite(6, HIGH);
           Serial.print("YAAAAAAAAAAAAa");
         }
