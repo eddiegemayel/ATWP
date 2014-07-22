@@ -71,18 +71,26 @@ void setup() {
 
 void loop()
 {
+  
+  String y;
   // if there are incoming bytes available 
   // from the server, read them and print them:
   if (client.available()) {
     char c = client.read();
     
     if(client.connected()){
-       digitalWrite(6, HIGH);
+       digitalWrite(6, LOW);
        Serial.print(c);
-       if(c=='1'){
-//         Serial.print("FUCK");
-         
-       }
+       y+= c;
+//       if(y=="Yo"){
+//          Serial.print("yeahhhhhhh");
+//          digitalWrite(6, HIGH);
+//       }
+
+        if(c=='9'){
+          digitalWrite(6, HIGH);
+          Serial.print("YAAAAAAAAAAAAa");
+        }
     }
   
 //    Serial.print(c);
