@@ -79,14 +79,14 @@ void loop()
     if(client.connected()){
        digitalWrite(6, HIGH);
        Serial.print(c);
+       if(c=='1'){
+//         Serial.print("FUCK");
+         
+       }
     }
-   
-    
+  
 //    Serial.print(c);
-    
-   
-    
-     
+        
   }
 
   // if the server's disconnected, stop the client:
@@ -95,6 +95,7 @@ void loop()
     Serial.println("disconnecting.");
     client.stop();
     digitalWrite(6, LOW);
+    
 
     // do nothing forevermore:
     while(true);
