@@ -16,6 +16,11 @@
 
 #include <SPI.h>
 #include <Ethernet.h>
+#include <Servo.h> 
+
+int pos = 0;
+ 
+Servo myservo;
 
 // Enter a MAC address for your controller below.
 // Newer Ethernet shields have a MAC address printed on a sticker on the shield
@@ -39,7 +44,7 @@ void setup() {
    while (!Serial) {
     ; // wait for serial port to connect. Needed for Leonardo only
   }
-  
+   myservo.attach(9);
   pinMode(6, OUTPUT);
 
   // start the Ethernet connection:
@@ -79,16 +84,31 @@ void loop()
     char c = client.read();
     
     if(client.connected()){
-       digitalWrite(6, LOW);
+       digitalWrite(6, HIGH);
        Serial.print(c);
        y+= c;
-//       if(y=="Yo"){
-//          Serial.print("yeahhhhhhh");
-//          digitalWrite(6, HIGH);
+//       if(c){
+////          Serial.print("yeahhhhhhh");
+////          digitalWrite(6, HIGH);
+//          
+//  
+//          
 //       }
-
+//
         if(c=='Q'){
-          digitalWrite(6, HIGH);
+          digitalWrite(6, LOW);
+          
+                for(pos = 0; pos < 180; pos += 1){  // goes from 0 degrees to 180 degrees 
+                                    // in steps of 1 degree 
+      myservo.write(pos);              // tell servo to go to position in variable 'pos' 
+      delay(15);                       // waits 15ms for the servo to reach the position 
+          } 
+          
+          
+          
+          
+          
+          
 //          Serial.print("YAAAAAAAAAAAAa");
         }
     }
@@ -102,7 +122,7 @@ void loop()
     Serial.println();
     Serial.println("disconnecting.");
     client.stop();
-    digitalWrite(6, LOW);
+//    digitalWrite(6, LOW);
     
 
     // do nothing forevermore:
