@@ -1,3 +1,5 @@
+
+
 /*
   Web Server
  
@@ -30,8 +32,8 @@ IPAddress ip(192,168,1,177);
 EthernetServer server(80);
 
 void setup() {
-  pinMode(13,OUTPUT);
-  digitalWrite(13,LOW);
+  pinMode(8,OUTPUT);
+  digitalWrite(8,HIGH);
  // Open serial communications and wait for port to open
   Serial.begin(9600);
    while (!Serial) {
@@ -58,40 +60,7 @@ void loop() {
       if (client.available()) {
         int digitalRequests = 0;  
         int analogRequests = 0;
-        
-        // if you've gotten to the end of the line (received a newline
-        // character) and the line is blank, the http request has ended,
-        // so you can send a reply
-        // Begin request vars parsing...
-        if(client.find("GET /")){
-          while(client.findUntil("pin", "\n\r")){  
-            char type = client.read(); // D or A
-            // the next ascii integer value in the stream is the pin
-            int pin = client.parseInt(); 
-            int val = client.parseInt(); // the integer after that is the value
-
-            if( type == 'D') {
-              Serial.print("Digital pin ");
-              pinMode(pin, OUTPUT);
-              digitalWrite(pin, val);
-              digitalRequests++;
-            }
-            else if( type == 'A'){
-              Serial.print("Analog pin ");
-              analogWrite(pin, val);
-              analogRequests++;
-            }
-            else {
-              Serial.print("Unexpected type ");
-              Serial.print(type);
-            }
-            Serial.print(pin);
-            Serial.print("=");
-            Serial.println(val);
-          }
-
-          
-        }
+     
         
         
         
@@ -103,32 +72,45 @@ void loop() {
           client.println();
           client.println("<!DOCTYPE HTML>");
           client.println("<html>");
-           // output the number of pins handled by the request
-        client.print(digitalRequests);
-        client.print(" digital pin(s) written");
-        client.println("<br />");
-       
-        client.print(analogRequests);
-        client.print(" analog pin(s) written");
-         client.println("<br />");
-         client.println("<button>Yo</button>");
-        client.println("<br />");
-        client.println("<br />");
           
-          // output the value of each analog input pin
-          for (int analogChannel = 0; analogChannel < 6; analogChannel++) {
-            int sensorReading = analogRead(analogChannel);
-            client.print("analog input ");
-            client.print(analogChannel);
-            client.print(" is ");
-            client.print(sensorReading);
-            client.println("<br />");       
-          }
-          client.println("</html>");
-          break;
+       if (digitalRead(8)){
+          client.print(" LED is <font color='green'>ON</font>");
+        }else{
+          client.print(" LED is <font color='red'>OFF</font>");
+        }
+          client.println("<br />");
+
+          client.print("<FORM action=\”http://192.168.1.177/\” >");
+          client.print("<P> <INPUT type=\"radio\" name=\"status\" value=\"1\">ON");
+          client.print("<P> <INPUT type=\"radio\" name=\"status\" value=\"0\">OFF");
+          client.print("<P> <INPUT type=\"submit\" value=\"Submit\"> </FORM>");
+          
+          char c = client.read();
+          
+          if (c == '\n') {
+
+//          currentLineIsBlank = true;
+//          buffer="";
+//          } else if (c == '\r') {
+//          if(buffer.indexOf("GET /?status=1")>=0)
+//            digitalWrite(8,HIGH);
+//
+//          if(buffer.indexOf("GET /?status=0")>=0)
+//            digitalWrite(8,LOW);
+//          }
+//          
+//          
+//          
+//          break;
         
       }
+      
+      
+      
+      
     }
+    
+    
     // give the web browser time to receive the data
     delay(1);
     // close the connection:
