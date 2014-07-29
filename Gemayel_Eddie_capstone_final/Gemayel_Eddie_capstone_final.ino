@@ -85,11 +85,13 @@ Serial.write(c);
 
 
            client.println("<ul>");
-              client.println("<a href=\"/?lightblue\"\">Turn On Blue Light</a><br/>");
+              client.println("<a href=\"/?lightblue\"\">Blue Light</a><br/>");
               client.println("");
-              client.println("<a href=\"/?lightgreen\"\">Turn On Green Light</a><br/>");
+              client.println("<a href=\"/?lightgreen\"\">Green Light</a><br/>");
                client.println("");
-               client.println("<a href=\"/?lightred\"\">Turn On Red Light</a><br/>");
+               client.println("<a href=\"/?lightred\"\">Red Light</a><br/>");
+                client.println("");
+                 client.println("<a href=\"/?lightpink\"\">Pink Light</a><br/>");
                 client.println("");
               client.println("<a href=\"/?lightoff\"\">Turn Off Light</a><br />");  
          client.println("");      
@@ -148,6 +150,14 @@ Serial.write(c);
             analogWrite(red, 255); // turn on blue
 //                delay(2000); // wait a sec
               analogWrite(blue, 255); // turn off blue
+              analogWrite(green, 255);
+              Serial.println("light off");
+          }
+          
+           else if(readString.indexOf("?lightpink")>0){
+            analogWrite(red, 80); // turn on blue
+//                delay(2000); // wait a sec
+              analogWrite(blue, 80); // turn off blue
               analogWrite(green, 255);
               Serial.println("light off");
           }
