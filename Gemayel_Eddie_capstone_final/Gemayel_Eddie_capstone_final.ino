@@ -76,24 +76,26 @@ Serial.write(c);
           client.println("<HEAD>");
           client.println("<TITLE>Eddie's Arduino</TITLE>");
           client.println("<link rel='stylesheet' type='text/css' href='mystyle.css'>");
+          client.println("<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>");
           client.println("</HEAD>");
           client.println("<BODY>");
-          client.println("<H1>House Light Control</H1>");
+          client.println("<H1 class='center'>Personal Home Light Controller</H1>");
           client.println("<hr />");
           client.println("<br />");
-//          client.println("<style");
+          client.println("<h2 class='center'>Pick a color for your outdoor lights to be</h2>");
+          client.println("<style> h1, h2{color:red; font-family: 'Lato', sans-serif; color:#FF5951;} a{text-decoration:none;} .center{vertical-align:middle; text-align:center;}</style>");
 
 
-           client.println("<ul>");
+           client.println("<ul style='vertical-align:middle; margin-left: 45%; ' >");
               client.println("<a href=\"/?lightblue\"\">Blue Light</a><br/>");
               client.println("");
-              client.println("<a href=\"/?lightgreen\"\">Green Light</a><br/>");
+              client.println("<a  href=\"/?lightgreen\"\">Green Light</a><br/>");
                client.println("");
-               client.println("<a href=\"/?lightred\"\">Red Light</a><br/>");
+               client.println("<a  href=\"/?lightred\"\">Red Light</a><br/>");
                 client.println("");
-                 client.println("<a href=\"/?lightpink\"\">Pink Light</a><br/>");
+                 client.println("<a  href=\"/?lightpink\"\">Pink Light</a><br/>");
                 client.println("");
-              client.println("<a href=\"/?lightoff\"\">Turn Off Light</a><br />");  
+              client.println("<a  href=\"/?lightoff\"\">Turn Off Light</a><br />");  
          client.println("");      
            client.println("</ul>");
            
