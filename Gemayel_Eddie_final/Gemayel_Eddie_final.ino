@@ -5,6 +5,7 @@
 int led = 8;
 //String POST = ""; 
 boolean SET = true;
+String readString;
 
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network:
@@ -38,88 +39,70 @@ void setup() {
 
 void loop() { // listen for incoming clients
 EthernetClient client = server.available(); 
-digitalWrite(led, HIGH); 
+//digitalWrite(led, HIGH); 
 if (client) { Serial.println("new client");
 // an http request ends with a blank line
 boolean currentLineIsBlank = true; 
 while (client.connected()) { 
 if (client.available()) { 
 char c = client.read(); 
-Serial.write(c); // if you've gotten to the end of the line (received a newline // character) and the line is blank, the http request has ended, 
-// so you can send a reply 
-if (c == '\n' && currentLineIsBlank) { 
-// it is after the double cr-lf that the variables are 
-// read another line! 
-String POST = ""; 
-while(client.available()) { 
-  c = client.read(); 
-  // save the variables somewhere 
-  POST += c; 
-} 
-if(POST != "") { 
-if(POST == "status=1"){ 
-  SET = true; 
-  Serial.println("onnnnnnnnnnnnn"); 
-  digitalWrite(led, HIGH);
-}else{ 
-  SET = false; 
-  digitalWrite(led, LOW);
-  Serial.println("offffffffffff");
-} 
-} 
+Serial.write(c); 
+ readString += c;
 
-// send a standard http response header 
-client.println("HTTP/1.1 200 OK"); 
-client.println("Content-Type: text/html"); 
-client.println("Connnection: close"); 
-client.println(); client.println(""); 
-client.println("Eddie's Arudino"); 
-client.println(""); 
-client.println(""); 
-client.println(""); 
 
-if (digitalRead(8)){
-          client.print(" LED is <font color='green'>ON</font>");
-        }else{
-          client.print(" LED is <font color='red'>OFF</font>");
-        }
+ //if HTTP request has ended
+        if (c == '\n') {
+ 
+          ///////////////
+          Serial.println("NEW LINE");
+          Serial.println(readString); //print to serial monitor for debuging
+ 
+          client.println("HTTP/1.1 200 OK"); //send new page
+          client.println("Content-Type: text/html");
+          client.println();
+ 
+          client.println("<HTML>");
+          client.println("<HEAD>");
+          client.println("<TITLE>Eddie's Arduino</TITLE>");
+          client.println("</HEAD>");
+          client.println("<BODY>");
+          client.println("<H1>House Light Control</H1>");
+          client.println("<hr />");
           client.println("<br />");
+         
+          client.println("<a href=\"/?lighton\"\">Turn On Light</a>");
+          client.println("<a href=\"/?lightoff\"\">Turn Off Light</a><br />");        
+ 
+          client.println("</BODY>");
+          client.println("</HTML>");
+ 
+          delay(1);
+          //stopping client
+          client.stop();
+ 
+          ///////////////////// control arduino pin
+          if(readString.indexOf("?lighton") >0)//checks for on
+          {
+            digitalWrite(8, HIGH);    
+            Serial.println("Led On");
+          }
+          else{
+          if(readString.indexOf("?lightoff") >0)//checks for off
+          {
+            digitalWrite(8, LOW);    
+            Serial.println("Led Off");
+          }
+          }
+          //clearing string for next read
+          readString="";
+ 
 
-          client.print("<FORM action=\”http://192.168.1.177/\” >");
-          client.print("<P> <INPUT type=\"radio\" name=\"status\" value=\"1\">ON");
-          client.print("<P> <INPUT type=\"radio\" name=\"status\" value=\"0\">OFF");
-//          client.print("<p></form>");
-          client.print("<P> <INPUT type=\"submit\" value=\"Submit\"> </FORM>");
-          
 
 
-
-
-client.println(""); 
-//break; 
+        }
 }
 
-
-
-
-
-if (c == '\n') { 
-// you're starting a new line 
-currentLineIsBlank = true;
-} else if (c != '\r') { 
-// you've gotten a character on the current line 
-currentLineIsBlank = false;
-} 
-} 
 }
-// give the web browser time to receive the data 
-delay(1); // close the connection: 
-client.stop(); 
-Serial.println("client disconnected"); 
-} 
-if(SET == true){ 
-digitalWrite(led, HIGH); 
-}else{ 
-digitalWrite(led, LOW); 
-} 
 }
+}
+
