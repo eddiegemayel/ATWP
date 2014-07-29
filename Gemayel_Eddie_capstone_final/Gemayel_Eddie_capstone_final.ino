@@ -75,18 +75,27 @@ Serial.write(c);
           client.println("<HTML>");
           client.println("<HEAD>");
           client.println("<TITLE>Eddie's Arduino</TITLE>");
-          client.println("<link rel='stylesheet' href='main.css'/>");
+          client.println("<link rel='stylesheet' type='text/css' href='mystyle.css'>");
           client.println("</HEAD>");
           client.println("<BODY>");
           client.println("<H1>House Light Control</H1>");
           client.println("<hr />");
           client.println("<br />");
-         
-          client.println("<a href=\"/?lightblue\"\">Turn On Blue Light</a>");
-          client.println("<a href=\"/?lightgreen\"\">Turn On Green Light</a>");
-           client.println("<a href=\"/?lightred\"\">Turn On Red Light</a>");
-//          client.println("<a href=\"/?lightoff\"\">Turn Off Light</a><br />");        
- 
+//          client.println("<style");
+
+
+           client.println("<ul>");
+              client.println("<a href=\"/?lightblue\"\">Turn On Blue Light</a><br/>");
+              client.println("");
+              client.println("<a href=\"/?lightgreen\"\">Turn On Green Light</a><br/>");
+               client.println("");
+               client.println("<a href=\"/?lightred\"\">Turn On Red Light</a><br/>");
+                client.println("");
+              client.println("<a href=\"/?lightoff\"\">Turn Off Light</a><br />");  
+         client.println("");      
+           client.println("</ul>");
+           
+           
           client.println("</BODY>");
           client.println("</HTML>");
  
@@ -100,9 +109,10 @@ Serial.write(c);
   
   
               analogWrite(blue, 0); // turn on blue
-                delay(1000); // wait a sec
-              analogWrite(blue, 255); // turn off blue
-
+//                delay(2000); // wait a sec
+//              analogWrite(blue, 255); // turn off blue
+              analogWrite(green, 255); // turn off blue
+              analogWrite(red, 255);
            
   
             Serial.println("blue On");
@@ -112,8 +122,9 @@ Serial.write(c);
   
   
               analogWrite(green, 0); // turn on blue
-                delay(1000); // wait a sec
-              analogWrite(green, 255); // turn off blue
+//                delay(2000); // wait a sec
+              analogWrite(blue, 255); // turn off blue
+              analogWrite(red, 255);
 
            
   
@@ -124,20 +135,21 @@ Serial.write(c);
   
   
               analogWrite(red, 0); // turn on blue
-                delay(1000); // wait a sec
-              analogWrite(red, 255); // turn off blue
+//                delay(2000); // wait a sec
+              analogWrite(blue, 255); // turn off blue
+              analogWrite(green, 255);
 
            
   
             Serial.println("red On");
           }
-          else if(readString.indexOf("?lightoff") >0){
-           
-              analogWrite(blue, 255);   
+          
+          else if(readString.indexOf("?lightoff")>0){
+            analogWrite(red, 255); // turn on blue
+//                delay(2000); // wait a sec
+              analogWrite(blue, 255); // turn off blue
               analogWrite(green, 255);
-              analogWrite(red, 255); 
-              Serial.println("Led Off");
-            
+              Serial.println("light off");
           }
           
           
