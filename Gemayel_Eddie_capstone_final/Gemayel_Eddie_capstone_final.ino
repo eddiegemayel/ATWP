@@ -77,23 +77,40 @@ Serial.write(c);
           client.println("<TITLE>Eddie's Arduino</TITLE>");
           client.println("<link rel='stylesheet' type='text/css' href='mystyle.css'>");
           client.println("<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>");
+
           client.println("</HEAD>");
           client.println("<BODY>");
-          client.println("<H1 class='center'>Personal Home Light Controller</H1>");
+          client.println("<H1 class='center'>Remote Light Controller</H1>");
           client.println("<hr />");
           client.println("<br />");
-          client.println("<h2 class='center'>Pick a color for your outdoor lights to be</h2>");
-          client.println("<style> h1, h2{color:red; font-family: 'Lato', sans-serif; color:#FF5951;} a{text-decoration:none;} .center{vertical-align:middle; text-align:center;}</style>");
+          client.println("<h2 class='center'>Choose a color:</h2>");
+          
+          
+          
+          if (readString.indexOf("?lightblue")>0){
+          client.print(" <p>LED is now <font color='blue'>blue.</font></p>");
+          }else if(readString.indexOf("?lightred")>0){
+            client.print(" <p>LED is now <font color='red'><strong>red</strong>.</font></p>");
+          }
+           else if(readString.indexOf("?lightgreen")>0){
+            client.print(" <p>LED is now <font color='green'><strong>green</strong>.</font></p>");
+          }
+         
+           else if(readString.indexOf("?lightoff")>0){
+            client.print("<p> LED is now <strong>off</strong>.</p>");
+          }
+          
+
+          client.println("<style> h1, h2, h3{color:red; font-family: 'Lato', sans-serif; color:#FF5951;} a{text-decoration:none; margin-bottom: 2%;} .center{vertical-align:middle; text-align:center;} p{font-family: 'Open Sans Condensed', sans-serif; vertical-align:middle; text-align:center;}</style>");
 
 
-           client.println("<ul style='vertical-align:middle; margin-left: 45%; ' >");
+           client.println("<ul style='vertical-align:middle; margin-left: 45%;' >");
               client.println("<a href=\"/?lightblue\"\">Blue Light</a><br/>");
               client.println("");
               client.println("<a  href=\"/?lightgreen\"\">Green Light</a><br/>");
                client.println("");
                client.println("<a  href=\"/?lightred\"\">Red Light</a><br/>");
-                client.println("");
-                 client.println("<a  href=\"/?lightpink\"\">Pink Light</a><br/>");
+            
                 client.println("");
               client.println("<a  href=\"/?lightoff\"\">Turn Off Light</a><br />");  
          client.println("");      
@@ -113,12 +130,11 @@ Serial.write(c);
   
   
               analogWrite(blue, 0); // turn on blue
-//                delay(2000); // wait a sec
-//              analogWrite(blue, 255); // turn off blue
+//           
               analogWrite(green, 255); // turn off blue
               analogWrite(red, 255);
            
-  
+            
             Serial.println("blue On");
           }
           else if(readString.indexOf("?lightgreen") >0)//checks for on
@@ -126,7 +142,7 @@ Serial.write(c);
   
   
               analogWrite(green, 0); // turn on blue
-//                delay(2000); // wait a sec
+//          
               analogWrite(blue, 255); // turn off blue
               analogWrite(red, 255);
 
@@ -139,7 +155,7 @@ Serial.write(c);
   
   
               analogWrite(red, 0); // turn on blue
-//                delay(2000); // wait a sec
+//             
               analogWrite(blue, 255); // turn off blue
               analogWrite(green, 255);
 
@@ -150,27 +166,15 @@ Serial.write(c);
           
           else if(readString.indexOf("?lightoff")>0){
             analogWrite(red, 255); // turn on blue
-//                delay(2000); // wait a sec
               analogWrite(blue, 255); // turn off blue
               analogWrite(green, 255);
               Serial.println("light off");
           }
           
-           else if(readString.indexOf("?lightpink")>0){
-            analogWrite(red, 80); // turn on blue
-//                delay(2000); // wait a sec
-              analogWrite(blue, 80); // turn off blue
-              analogWrite(green, 255);
-              Serial.println("light off");
-          }
-          
-          
-          
+  
           //clearing string for next read
           readString="";
  
-
-
 
         }
 }
