@@ -81,8 +81,7 @@ Serial.write(c);
           client.println("</HEAD>");
           client.println("<BODY>");
           client.println("<H1 class='center'>Remote Light Controller</H1>");
-          client.println("<hr />");
-          client.println("<br />");
+          client.println("<hr/>");
           client.println("<h2 class='center'>Choose a color:</h2>");
           
           
@@ -101,7 +100,7 @@ Serial.write(c);
           }
           
 
-          client.println("<style> h1, h2, h3{color:red; font-family: 'Lato', sans-serif; color:#FF5951;} a{text-decoration:none; margin-bottom: 2%;} .center{vertical-align:middle; text-align:center;} p{font-family: 'Open Sans Condensed', sans-serif; vertical-align:middle; text-align:center;}</style>");
+          client.println("<style> h1, h2{font-family: 'Lato', sans-serif; color:#FF5951;} h2{color:#A597FF;} a{text-decoration:none; margin-bottom: 2%;} .center{vertical-align:middle; text-align:center;} p{font-family: sans-serif; vertical-align:middle; text-align:center;}</style>");
 
 
            client.println("<ul style='vertical-align:middle; margin-left: 45%;' >");
