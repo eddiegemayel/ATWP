@@ -2,9 +2,9 @@
 #include <SPI.h>
 #include <Ethernet.h>
 
-int led = 5;
-int led2 = 6;
-int led3 = 9;
+int green = 5;
+int blue = 6;
+int red = 9;
 int brightness = 255;
 //String POST = ""; 
 boolean SET = true;
@@ -22,7 +22,11 @@ IPAddress ip(192,168,1,177);
 EthernetServer server(80);
 
 void setup() {
-//  pinMode(led,OUTPUT);
+//  pinMode(blue,OUTPUT);
+//  pinMode(green, OUTPUT);
+//  pinMode(red, OUTPUT);
+  
+  
 
  // Open serial communications and wait for port to open
   Serial.begin(9600);
@@ -51,6 +55,10 @@ if (client.available()) {
 char c = client.read(); 
 Serial.write(c); 
  readString += c;
+ 
+// analogWrite(red,0); // turn off red
+// analogWrite(green,0); // turn off red
+// analogWrite(blue,0); // turn off red
 
 
  //if HTTP request has ended
@@ -73,8 +81,9 @@ Serial.write(c);
           client.println("<hr />");
           client.println("<br />");
          
-          client.println("<a href=\"/?lightred\"\">Turn On Red Light</a>");
           client.println("<a href=\"/?lightblue\"\">Turn On Blue Light</a>");
+          client.println("<a href=\"/?lightgreen\"\">Turn On Green Light</a>");
+           client.println("<a href=\"/?lightred\"\">Turn On Red Light</a>");
           client.println("<a href=\"/?lightoff\"\">Turn Off Light</a><br />");        
  
           client.println("</BODY>");
@@ -85,32 +94,48 @@ Serial.write(c);
           client.stop();
  
           ///////////////////// control arduino pin
-          if(readString.indexOf("?lightred") >0)//checks for on
+          if(readString.indexOf("?lightblue") >0)//checks for on
           {
-             for(int fade = 255 ; fade >= 0; fade -=5) { 
-            // sets the value (range from 0 to 255):
-              analogWrite(led, fade);         
-              // wait for 30 milliseconds to see the dimming effect 
-     
-              delay(20);                            
-              }
   
-               for(int fade = 0 ; fade<=250; fade +=5) { 
-              // sets the value (range from 0 to 255):
-              analogWrite(led, fade);         
-                // wait for 30 milliseconds to see the dimming effect 
-     
-                delay(20);                            
-                }
   
-            Serial.println("Red On");
+              analogWrite(blue, 0); // turn on blue
+                delay(1000); // wait a sec
+              analogWrite(blue, 255); // turn off blue
+
+           
+  
+            Serial.println("blue On");
+          }
+          else if(readString.indexOf("?lightgreen") >0)//checks for on
+          {
+  
+  
+              analogWrite(green, 0); // turn on blue
+                delay(1000); // wait a sec
+              analogWrite(green, 255); // turn off blue
+
+           
+  
+            Serial.println("green On");
+          }
+          else if(readString.indexOf("?lightred") >0)//checks for on
+          {
+  
+  
+              analogWrite(red, 0); // turn on blue
+                delay(1000); // wait a sec
+              analogWrite(red, 255); // turn off blue
+
+           
+  
+            Serial.println("red On");
           }
           else{
             if(readString.indexOf("?lightoff") >0)//checks for off
             {
-              analogWrite(5, 0);   
-              analogWrite(6, 0);
-              analogWrite(9, 0); 
+              analogWrite(blue, 255);   
+              analogWrite(green, 255);
+              analogWrite(red, 255); 
               Serial.println("Led Off");
             }
           }
