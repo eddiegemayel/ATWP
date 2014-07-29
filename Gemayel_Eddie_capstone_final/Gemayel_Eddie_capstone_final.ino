@@ -75,6 +75,7 @@ Serial.write(c);
           client.println("<HTML>");
           client.println("<HEAD>");
           client.println("<TITLE>Eddie's Arduino</TITLE>");
+          client.println("<link rel='stylesheet' href='main.css'/>");
           client.println("</HEAD>");
           client.println("<BODY>");
           client.println("<H1>House Light Control</H1>");
@@ -84,7 +85,7 @@ Serial.write(c);
           client.println("<a href=\"/?lightblue\"\">Turn On Blue Light</a>");
           client.println("<a href=\"/?lightgreen\"\">Turn On Green Light</a>");
            client.println("<a href=\"/?lightred\"\">Turn On Red Light</a>");
-          client.println("<a href=\"/?lightoff\"\">Turn Off Light</a><br />");        
+//          client.println("<a href=\"/?lightoff\"\">Turn Off Light</a><br />");        
  
           client.println("</BODY>");
           client.println("</HTML>");
@@ -130,14 +131,13 @@ Serial.write(c);
   
             Serial.println("red On");
           }
-          else{
-            if(readString.indexOf("?lightoff") >0)//checks for off
-            {
+          else if(readString.indexOf("?lightoff") >0){
+           
               analogWrite(blue, 255);   
               analogWrite(green, 255);
               analogWrite(red, 255); 
               Serial.println("Led Off");
-            }
+            
           }
           
           
