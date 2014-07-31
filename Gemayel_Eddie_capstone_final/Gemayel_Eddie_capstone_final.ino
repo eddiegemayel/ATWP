@@ -98,7 +98,7 @@ Serial.write(c);
           }
           
           //couple styles
-          client.println("<style>   h1, h2{font-family: 'Lato', sans-serif; color:#FF5951;} h2{color:#A597FF;} a{text-decoration:none; margin-bottom: 2%;} .center{vertical-align:middle; text-align:center;} p{font-family: sans-serif; vertical-align:middle; text-align:center;}</style>");
+          client.println("<style>   h1, h2{font-family: 'Lato', sans-serif; color:#FF5951;} h2{color:#A597FF;} a:visited{color: black;} a{color:black; font-family: 'Lato', sans-serif; text-decoration:none; margin-bottom: 2%;} .center{vertical-align:middle; text-align:center;} p{font-family: sans-serif; vertical-align:middle; text-align:center;}</style>");
           
 //          .blue{color:#4069E8;} .red{color: #FF1D19;} .green{color:#49E831;} 
 //          <span class='blue'>
